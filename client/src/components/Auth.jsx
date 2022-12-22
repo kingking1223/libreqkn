@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Cookies from 'universal-cookie'
 import axios from 'axios'
 
+const cookies = new Cookies()
+
 const initialState = {
     username: '',
     password: '',
@@ -9,17 +11,31 @@ const initialState = {
 
 const Auth = () => {
     const [form, setForm] = useState(initialState)
+    const [isSignup, setIsSignup] = useState(true);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value })
-
-        console.log(form)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(form)
+        const { username, password } = form;
+        const url = 'http://localhost:5000/auth'
+
+        const { data: { token, userId, hashedPassword } } = await axios.post(`${url}/${isSignup ? 'signup' : 'login'}`, {
+            username, password,
+        })
+
+        cookies.set('token', token)
+        cookies.set('username', username)
+        cookies.set('userId', userId)
+
+        window.location.reload()
+    }
+
+    const switchMode = () => {
+        setIsSignup((prevIsSignup) => !prevIsSignup);
     }
 
     return (
@@ -49,9 +65,20 @@ const Auth = () => {
                             />
                         </div>
                         <div className="auth__form-container_fields-content_button">
-                            <button>Log In</button>
+                            <button>{isSignup ? "Sign Up" : "Log In"}</button>
                         </div>
                     </form>
+                    <div className="auth__form-container_fields-account">
+                        <p>
+                            {isSignup
+                             ? "Already have an account?" 
+                             : "Don't have an account?"
+                             }
+                             <span onClick={switchMode}>
+                             {isSignup ? 'Sign In' : 'Sign Up'}
+                             </span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
