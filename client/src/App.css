@@ -471,6 +471,7 @@ body {
 }
 
 .channel-search__input__icon {
+  margin-left: 6vh;
   width: 32px;
   display: flex;
   justify-content: center;
