@@ -17,7 +17,7 @@ const ChannelContainer = ({ isCreating, setIsCreating, isEditing, setIsEditing, 
     if (isEditing) {
         return (
             <div className="channel_container">
-                <EditChannel setIsCreating={setIsCreating} />
+                <EditChannel setIsEditing={setIsEditing} />
             </div>
         )
     }
@@ -29,7 +29,8 @@ const ChannelContainer = ({ isCreating, setIsCreating, isEditing, setIsEditing, 
 
         </div>
     )
-
+    
+    // TODO: Custom msgteam ui
     return (
         <div className="channel__container">
             <Channel

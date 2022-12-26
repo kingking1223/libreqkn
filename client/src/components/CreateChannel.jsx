@@ -29,7 +29,9 @@ const CreateChannel = ({ createType, setIsCreating }) => {
 
         try {
             const newChannel = await client.channel(createType, channelName, {
-                name: channelName, members: selectedUsers 
+                name: channelName, 
+                members: selectedUsers,
+                course: window.course
             })
 
             await newChannel.watch()

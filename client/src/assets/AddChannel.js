@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const AddChannel = ({ setCreateType, setIsCreating, setIsEditing, setToggleContainer, type }) => (
+export const AddChannel = ({ setCreateType, setIsCreating, setIsEditing, setToggleContainer, type, course }) => (
   <svg
     width='14'
     height='14'
@@ -12,6 +12,7 @@ export const AddChannel = ({ setCreateType, setIsCreating, setIsEditing, setTogg
       setIsCreating((prevState) => !prevState);
       setIsEditing(false);
       if(setToggleContainer) setToggleContainer((prevState) => !prevState) 
+      window.course = course
     }}
   >
     <path

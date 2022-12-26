@@ -2,8 +2,24 @@ import React from 'react'
 
 import { AddChannel } from '../assets';
 
-const TeamChannelList = ({ children, error = false, loading, type, isCreating, setIsCreating, setCreateType, setIsEditing, setToggleContainer }) => {
-  if (error) {
+const HeaderText = ({ type, course }) => {
+    if (type === "team") {
+        if (course === "chem") {
+            return <p className='team-channel-list__header__title'>Chemistry</p>
+        } else if (course === "math") {
+            return <p className='team-channel-list__header__title'>Mathematics</p>
+        } else {
+            return <p className='team-channel-list__header__title'>Programming</p>
+        }
+        // return <p className='team-channel-list__header__title'>Channels</p>
+    } else {
+        return <p className='team-channel-list__header__title'>Direct Messages</p>
+    }
+}
+
+const TeamChannelList = ({ course, children, error = false, loading, type, isCreating, setIsCreating, setCreateType, setIsEditing, setToggleContainer }) => {
+
+    if (error) {
     return type === 'team' ? (
         <div className='team-channel-list'>
             <p className='team-channel-list__message'>
@@ -26,9 +42,10 @@ const TeamChannelList = ({ children, error = false, loading, type, isCreating, s
   return (
     <div className='team-channel-list'>
         <div className='team-channel-list__header'>
-            <p className='team-channel-list__header__title'>
-                {type === 'team' ? "Channnels" : "Direct Messages"}
-            </p>
+            <HeaderText 
+                type={type}
+                course={course}
+            />
             <AddChannel 
                 isCreating={isCreating}
                 setIsCreating={setIsCreating}
@@ -36,6 +53,7 @@ const TeamChannelList = ({ children, error = false, loading, type, isCreating, s
                 setIsEditing={setIsEditing}
                 type={type === 'team' ? 'team' : 'messaging'}
                 setToggleContainer={setToggleContainer}
+                course={course}
             />
         </div>
         {children}

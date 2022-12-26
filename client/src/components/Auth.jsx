@@ -17,7 +17,7 @@ const initialState = {
 
 const Auth = () => {
     const [form, setForm] = useState(initialState);
-    const [isSignup, setIsSignup] = useState(true);
+    const [isSignup, setIsSignup] = useState(false);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -57,7 +57,7 @@ const Auth = () => {
         <div className="auth__form-container">
             <div className="auth__form-container_fields">
                 <div className="auth__form-container_fields-content">
-                    <p>{isSignup ? 'Sign Up' : 'Sign In'}</p>
+                    <p>{isSignup ? 'Sign Up' : 'Log In'}</p>
                     <form onSubmit={handleSubmit}>
                         {isSignup && (
                             <div className="auth__form-container_fields-content_input">
@@ -72,7 +72,7 @@ const Auth = () => {
                             </div>
                         )}
                         <div className="auth__form-container_fields-content_input">
-                            <label htmlFor="username">Username</label>
+                            <label htmlFor="username">User ID</label>
                                 <input 
                                     name="username" 
                                     type="text"
@@ -89,7 +89,7 @@ const Auth = () => {
                                     type="text"
                                     placeholder="Phone Number"
                                     onChange={handleChange}
-                                    required
+                                    // required
                                 />
                             </div>
                         )}
@@ -101,7 +101,7 @@ const Auth = () => {
                                     type="text"
                                     placeholder="Avatar URL"
                                     onChange={handleChange}
-                                    required
+                                    // required
                                 />
                             </div>
                         )}
@@ -128,7 +128,7 @@ const Auth = () => {
                             </div>
                             )}
                         <div className="auth__form-container_fields-content_button">
-                            <button>{isSignup ? "Sign Up" : "Sign In"}</button>
+                            <button>{isSignup ? "Sign Up" : "Log In"}</button>
                         </div>
                     </form>
                     <div className="auth__form-container_fields-account">
