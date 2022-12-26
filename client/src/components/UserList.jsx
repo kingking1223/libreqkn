@@ -31,8 +31,7 @@ const UserItem = ({ user, setSelectedUsers }) => {
     return (
         <div className='user-item__wrapper' onClick={handleSelect}>
             <div className='user-item__name-wrapper'>
-                <Avatar image={user.image} name={user.fullName || user.id} size={32}/>
-                <p className='user-item__name'>{user.fullName || user.id}</p>
+                <p className='user-item__name'>{user.name || user.id}</p>
             </div>
             {selected ? <InviteIcon /> : <div className='user-item__invite-empty' />}
         </div>
@@ -53,7 +52,7 @@ const UserList = ({ setSelectedUsers }) => {
             setLoading(true)
             try {
                 const response = await client.queryUsers(
-                    { id: { $nin: [client.userID, 'leung-king'] } },
+                    { id: { $nin: [client.userID, 'leung-king', '9909e903151b672391ffd94544361dda', 'deleted-user-1225714-44e0c9184f9b931755fdd5ec43e61325'] } },
                     { id: 1 },
                     { limit: 8 }
                 )

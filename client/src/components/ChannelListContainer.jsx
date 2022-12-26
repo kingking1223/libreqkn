@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ChannelList, useChatContext } from 'stream-chat-react';
 import Cookies from 'universal-cookie';
 
-import { ChannelSearch, TeamChannelList, TeamChannelPreview } from './';
+import { ChannelSearch, TeamChannelList, ChemChannelPreview, MathChannelPreview, ProgChannelPreview, DirectPreview } from './';
 import libreqknIcon from '../assets/libreqkn.jpg'
 import LogoutIcon from '../assets/logout.png'
 
@@ -20,6 +20,11 @@ const SideBar = ({ logout }) => (
                 <img src={LogoutIcon} alt="Logout" width="30" />
             </div>
         </div>
+        {/* <div className='channel-list__sidebar__icon3'>
+            <div className='icon1__inner'>
+                <p>U</p>
+            </div>
+        </div> */}
     </div>
 );
 
@@ -72,10 +77,61 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
                             setCreateType={setCreateType} 
                             setIsEditing={setIsEditing}
                             setToggleContainer={setToggleContainer}
+                            course="chem"
                         />
                     )}
                     Preview={(previewProps) => (
-                        <TeamChannelPreview 
+                        <ChemChannelPreview 
+                            {...previewProps}
+                            setIsCreating={setIsCreating}
+                            setIsEditing={setIsEditing}
+                            setToggleContainer={setToggleContainer}
+                            type="team"
+                        />
+                    )}
+                />
+                <ChannelList 
+                    filters={filters}
+                    channelRenderFilterFn={customChannelTeamFilter}
+                    List={(listProps) => (
+                        <TeamChannelList 
+                            {...listProps}
+                            type="team"
+                            isCreating={isCreating}
+                            setIsCreating={setIsCreating}
+                            setCreateType={setCreateType} 
+                            setIsEditing={setIsEditing}
+                            setToggleContainer={setToggleContainer}
+                            course="math"
+                        />
+                    )}
+                    Preview={(previewProps) => (
+                        <MathChannelPreview 
+                            {...previewProps}
+                            setIsCreating={setIsCreating}
+                            setIsEditing={setIsEditing}
+                            setToggleContainer={setToggleContainer}
+                            type="team"
+                        />
+                    )}
+                />
+                <ChannelList 
+                    filters={filters}
+                    channelRenderFilterFn={customChannelTeamFilter}
+                    List={(listProps) => (
+                        <TeamChannelList 
+                            {...listProps}
+                            type="team"
+                            isCreating={isCreating}
+                            setIsCreating={setIsCreating}
+                            setCreateType={setCreateType} 
+                            setIsEditing={setIsEditing}
+                            setToggleContainer={setToggleContainer}
+                            course="prog"
+                        />
+                    )}
+                    Preview={(previewProps) => (
+                        <ProgChannelPreview 
                             {...previewProps}
                             setIsCreating={setIsCreating}
                             setIsEditing={setIsEditing}
@@ -96,15 +152,17 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
                             setCreateType={setCreateType} 
                             setIsEditing={setIsEditing}
                             setToggleContainer={setToggleContainer}
+                            course="msg"
                         />
                     )}
                     Preview={(previewProps) => (
-                        <TeamChannelPreview 
+                        <DirectPreview
                             {...previewProps}
                             setIsCreating={setIsCreating}
                             setIsEditing={setIsEditing}
                             setToggleContainer={setToggleContainer}
                             type="messaging"
+                            course="msg"
                         />
                     )}
                 />
