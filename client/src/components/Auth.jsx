@@ -35,15 +35,15 @@ const Auth = () => {
          username, password, fullName: form.fullName, phoneNumber, avatarURL,
         }, { mode: 'cors' });
 
-        cookies.set('token', token);
-        cookies.set('username', username);
-        cookies.set('fullName', fullName);
-        cookies.set('userId', userId);
+        cookies.set('token', token, {secure: true, sameSite: 'none'});
+        cookies.set('username', username, {secure: true, sameSite: 'none'});
+        cookies.set('fullName', fullName, {secure: true, sameSite: 'none'});
+        cookies.set('userId', userId, {secure: true, sameSite: 'none'});
 
         if(isSignup) {
-            cookies.set('phoneNumber', phoneNumber);
-            cookies.set('avatarURL', avatarURL);
-            cookies.set('hashedPassword', hashedPassword);
+            cookies.set('phoneNumber', phoneNumber, {secure: true, sameSite: 'none'});
+            cookies.set('avatarURL', avatarURL, {secure: true, sameSite: 'none'});
+            cookies.set('hashedPassword', hashedPassword, {secure: true, sameSite: 'none'});
         }
 
         window.location.reload();
