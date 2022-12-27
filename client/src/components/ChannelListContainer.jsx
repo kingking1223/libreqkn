@@ -4,6 +4,7 @@ import Cookies from 'universal-cookie';
 
 import { ChannelSearch, TeamChannelList, ChemChannelPreview, MathChannelPreview, ProgChannelPreview, DirectPreview } from './';
 import libreqknIcon from '../assets/libreqkn.jpg'
+import SettingsIcon from '../assets/SettingsIcon.svg'
 import LogoutIcon from '../assets/logout.png'
 
 const cookies = new Cookies();
@@ -16,7 +17,12 @@ const SideBar = ({ logout }) => (
             </div>
         </div>
         <div className="channel-list__sidebar__icon2">
-            <div className="icon1__inner" onClick={logout}>
+            <div className="icon2__inner">
+                <img src={SettingsIcon} alt="Settings" width="30" />
+            </div>
+        </div>
+        <div className="channel-list__sidebar__icon3">
+            <div className="icon3__inner" onClick={logout}>
                 <img src={LogoutIcon} alt="Logout" width="30" />
             </div>
         </div>
