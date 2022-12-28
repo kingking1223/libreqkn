@@ -391,6 +391,7 @@ body {
     #ffffff;
   border-radius: 9999px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.33);
+  cursor: pointer;
 }
 
 .channel-list__list__wrapper {
