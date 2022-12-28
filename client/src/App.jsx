@@ -31,6 +31,7 @@ const App = () => {
   const [ isCreating, setIsCreating ] = useState(false)
   const [ isEditing, setIsEditing ] = useState(false)
   const [ currentMode, setCurrentMode ] = useState("main")
+  const [ isLightMode, setIsLightMode ] = useState(true)
 
   const logout = () => {
     cookies.remove("token");
@@ -52,7 +53,7 @@ const App = () => {
       <div className='app__wrapper'>
         <Chat client={client} theme="team light">
             <LeftBar logout={logout} setCurrentMode={setCurrentMode} />
-            <Settings />
+            <Settings isLightMode={isLightMode} setIsLightMode={setIsLightMode}/>
         </Chat>
     </div>
     )
