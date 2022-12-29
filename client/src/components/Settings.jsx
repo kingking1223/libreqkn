@@ -608,7 +608,6 @@ const Settings = ({ client, isLightMode, setIsLightMode, isDev, setIsDev }) => {
 
     const reinit = async () => {
         const apiKey = process.env.REACT_APP_STREAM_API_KEY
-        console.log(apiKey)
         const client = StreamChat.getInstance(apiKey);
         try {
             const updateResponse = await client.upsertUsers([
