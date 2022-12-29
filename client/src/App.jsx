@@ -46,8 +46,6 @@ const App = () => {
     window.location.reload();
   }
 
-  console.log(isLightMode)
-
   if (!authToken) return <Auth />
 
   if (currentMode === "settings") {
@@ -55,7 +53,7 @@ const App = () => {
       <div className='app__wrapper'>
         <Chat client={client} theme="team light">
             <LeftBar logout={logout} setCurrentMode={setCurrentMode} />
-            <Settings isLightMode={isLightMode} setIsLightMode={setIsLightMode}/>
+            <Settings client={client} isLightMode={isLightMode} setIsLightMode={setIsLightMode} isDev={isDev} setIsDev={setIsDev} />
         </Chat>
     </div>
     )
@@ -70,6 +68,7 @@ const App = () => {
               setIsCreating={setIsCreating}
               setCreateType={setCreateType}
               setIsEditing={setIsEditing}
+              isDev={isDev}
             />
             <ChannelContainer 
               isCreating={isCreating}

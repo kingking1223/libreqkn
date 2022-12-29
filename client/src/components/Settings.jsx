@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'
+import { StreamChat } from 'stream-chat';
 import Cookies from 'universal-cookie';
 import Tooltip from '@mui/material/Tooltip';
+import axios from 'axios';
 
 import eyeIcon from '../assets/eyeIcon.svg'
 import privacyIcon from '../assets/privacyIcon.svg'
+import advancedIcon from '../assets/advancedIcon.svg'
 import helpIcon from '../assets/helpIcon.svg'
 import cancelButton from '../assets/cancelButton.svg'
 import cancelButtonDark from '../assets/cancelButtonDark.svg'
@@ -21,6 +24,10 @@ const SelectionBar = ({ setCurrentSettingsTab }) => {
                 <img src={privacyIcon} alt="Terms and Privacy"/>
                 <p>Terms and Privacy</p>
             </button>
+            <button className="tablinks" onClick={() => setCurrentSettingsTab("adv")}>
+                <img src={advancedIcon} alt="Advanced"/>
+                <p>Advanced</p>
+            </button>
             <button className="tablinks" onClick={() => setCurrentSettingsTab("about")}>
                 <img src={helpIcon} alt="About"/>
                 <p>About</p>
@@ -29,7 +36,7 @@ const SelectionBar = ({ setCurrentSettingsTab }) => {
     )
 }
 
-const Appr = ({ isLightMode, setIsLightMode }) => {
+const Appr = ({ isLightMode, setIsLightMode, isDev, setIsDev }) => {
     useEffect(() => {
         if (isLightMode) {
             document.documentElement.style.setProperty('--main', '#e1e1e1')
@@ -89,6 +96,34 @@ const Tap = ({ setviewingTerms }) => {
     )
 }
 
+const Adv = ({ isDev, setIsDev, reinit }) => {
+    return (
+        <div className='adv_wrapper'>
+            <div className='lightdark'>
+                <div className="lightdark__switch__container">
+                    <p>{isDev ? "Disable Developer Settings" : "Enable Developer Settings"}</p>
+                    <div className='lightdark__switch'>
+                        <label className="lightdark__label">
+                            <input type="checkbox" className="lightdark__check" onChange={() => setIsDev((prevState) => !prevState)} defaultChecked={isDev}/>
+                            <div className="lightdark__rail">
+                                <span className="dev__circle" />
+                                <span className='dev__border' />
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            {isDev === true &&
+                <Tooltip title="TODO: get a better name for the button">
+                    <div className='reinit_btn_wrapper'>
+                        <button className='reinit_btn' onClick={reinit}>Re-init possibly incorrect usernames</button>
+                    </div>
+                </Tooltip>
+            }
+        </div>
+    )
+}
+
 const About = ({ setviewingTerms }) => {
     return (
         <div className='abt_wrapper'>
@@ -120,9 +155,15 @@ const About = ({ setviewingTerms }) => {
     )
 }
 
-const MainSettings = ({ currentSettingsTab, isLightMode, setIsLightMode, setviewingTerms }) => {
-    if (currentSettingsTab === "appr") return <Appr isLightMode={isLightMode} setIsLightMode={setIsLightMode}/>
+const MainSettings = ({ currentSettingsTab, isLightMode, setIsLightMode, setviewingTerms, isDev, setIsDev, reinit }) => {
+    if (currentSettingsTab === "appr") return <Appr 
+        isLightMode={isLightMode} 
+        setIsLightMode={setIsLightMode} 
+        isDev={isDev}
+        setIsDev={setIsDev}
+    />
     if (currentSettingsTab === "tap") return <Tap setviewingTerms={setviewingTerms}/>
+    if (currentSettingsTab == "adv") return <Adv isDev={isDev} setIsDev={setIsDev} reinit={reinit} />
     return <About setviewingTerms={setviewingTerms}/>
 }
 
@@ -561,9 +602,30 @@ const Cl = ({ isLightMode, setviewingTerms }) => {
     )
 }
 
-const Settings = ({ isLightMode, setIsLightMode }) => {
+const Settings = ({ client, isLightMode, setIsLightMode, isDev, setIsDev }) => {
     const [currentSettingsTab, setCurrentSettingsTab] = useState("appr")
     const [viewingTerms, setviewingTerms] = useState("main")
+
+    const reinit = async () => {
+        const apiKey = process.env.REACT_APP_STREAM_API_KEY
+        console.log(apiKey)
+        const client = StreamChat.getInstance(apiKey);
+        try {
+            const updateResponse = await client.upsertUsers([
+                { id: '18ce', name: 'Mr. Enoch Cheung', fullName: 'Cheung Enoch'},
+                { id: 'cdg220055', name: 'King', fullName: 'Leung King King'},
+                { id: 'cdg220083', name: 'Kenny', fullName: 'Sandhu Kei Yin Kenny'},
+                { id: 'cdg220094', name: 'Calvin', fullName: 'Tang Kit Hin Calvin'},
+                { id: 'cdg220102', name: 'Justin', fullName: 'Tsue Yeuk Tin Justin'},
+                { id: 'cdg220108', name: 'Max', fullName: 'Wong Sheung Yau Max'}
+            ]);
+            console.log("test")
+            alert("done")
+        } catch (e) {
+            alert("error")
+            console.log(e)
+        }
+    }
 
     if (viewingTerms === "toc") return <Toc isLightMode={isLightMode} setviewingTerms={setviewingTerms} />
     if (viewingTerms === "pp") return <Pp isLightMode={isLightMode} setviewingTerms={setviewingTerms} />
@@ -579,6 +641,9 @@ const Settings = ({ isLightMode, setIsLightMode }) => {
                 isLightMode={isLightMode} 
                 setIsLightMode={setIsLightMode}
                 setviewingTerms={setviewingTerms}
+                isDev={isDev}
+                setIsDev={setIsDev}
+                reinit={reinit}
             />
         </div>
     )

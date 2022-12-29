@@ -60,4 +60,13 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { signup, login }
+const reinit = async (req, res) => {
+    try {
+        console.log("test")
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ message: error })
+    }
+}
+
+module.exports = { signup, login, reinit }

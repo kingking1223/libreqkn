@@ -2165,7 +2165,8 @@ div.rta__autocomplete.str-chat__emojisearch {
   border-radius: 2rem;
 }
 
-.toggle__circle {
+.toggle__circle,
+.dev__circle {
   display: block;
   width: 24px;
   height: 24px;
@@ -2181,7 +2182,8 @@ div.rta__autocomplete.str-chat__emojisearch {
   z-index: 2;
 }
 
-.toggle__border {
+.toggle__border,
+.dev__border {
   position: absolute;
   width: 32px;
   height: 32px;
@@ -2199,8 +2201,20 @@ div.rta__autocomplete.str-chat__emojisearch {
   box-shadow: inset 0 0 0 12px var(--active-color);
   background-color: black;
 }
+
+.lightdark__check:checked ~ .lightdark__rail .dev__circle {
+  transform: translateX(28px);
+  box-shadow: inset 0 0 0 12px var(--active-color);
+  background-color: red;
+}
+
 .lightdark__check:checked ~ .lightdark__rail .toggle__border {
   transform: translateX(28px);
+}
+
+.lightdark__check:checked ~ .lightdark__rail .dev__border {
+  transform: translateX(28px);
+  background-color: darkred;
 }
 
 .tap_wrapper {
@@ -2376,6 +2390,35 @@ div.rta__autocomplete.str-chat__emojisearch {
   border: none;
   font-size: 22px;
   padding: 15px 32px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.adv_wrapper {
+  background-color: var(--main);
+  height: 100%;
+  width: 80.6%;
+  display: block;
+  font-family: Helvetica Neue, sans-serif;
+}
+
+.reinit_btn_wrapper {
+  width: 100%;
+  height: 10%;
+  background-color: #ccc;
+}
+
+.reinit_btn {
+  position: relative;
+  height: 80%;
+  margin-top: .7%;
+  width: 30%;
+  margin-left: 35%;
+  margin-right: 35%;
+  background-color: var(--text-color);
+  color: var(--main);
+  border: none;
+  font-size: 16px;
   cursor: pointer;
   text-align: center;
 }

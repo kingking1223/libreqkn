@@ -17,7 +17,7 @@ const HeaderText = ({ type, course }) => {
     }
 }
 
-const TeamChannelList = ({ course, children, error = false, loading, type, isCreating, setIsCreating, setCreateType, setIsEditing, setToggleContainer }) => {
+const TeamChannelList = ({ course, children, error = false, loading, type, isCreating, setIsCreating, setCreateType, setIsEditing, setToggleContainer, isDev }) => {
 
     if (error) {
     return type === 'team' ? (
@@ -46,15 +46,17 @@ const TeamChannelList = ({ course, children, error = false, loading, type, isCre
                 type={type}
                 course={course}
             />
-            <AddChannel 
-                isCreating={isCreating}
-                setIsCreating={setIsCreating}
-                setCreateType={setCreateType} 
-                setIsEditing={setIsEditing}
-                type={type === 'team' ? 'team' : 'messaging'}
-                setToggleContainer={setToggleContainer}
-                course={course}
-            />
+            {isDev === true &&
+                <AddChannel 
+                    isCreating={isCreating}
+                    setIsCreating={setIsCreating}
+                    setCreateType={setCreateType} 
+                    setIsEditing={setIsEditing}
+                    type={type === 'team' ? 'team' : 'messaging'}
+                    setToggleContainer={setToggleContainer}
+                    course={course}
+                />
+            }      
         </div>
         {children}
     </div>
