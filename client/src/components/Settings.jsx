@@ -6,6 +6,7 @@ import eyeIcon from '../assets/eyeIcon.svg'
 import privacyIcon from '../assets/privacyIcon.svg'
 import helpIcon from '../assets/helpIcon.svg'
 import cancelButton from '../assets/cancelButton.svg'
+import cancelButtonDark from '../assets/cancelButtonDark.svg'
 
 const cookies = new Cookies()
 
@@ -34,12 +35,16 @@ const Appr = ({ isLightMode, setIsLightMode }) => {
             document.documentElement.style.setProperty('--main', '#e1e1e1')
             document.documentElement.style.setProperty('--text-color', '#000')
             document.documentElement.style.setProperty('--lightdark-line', '#4f5164')
-
-            
+            document.documentElement.style.setProperty('--link-color', '#2222ee')
+            document.documentElement.style.setProperty('--leftbar-color', '#5588ff')
+            document.documentElement.style.setProperty('--mainbar-color', '#446fff')
         } else {
             document.documentElement.style.setProperty('--main', '#414141')
             document.documentElement.style.setProperty('--text-color', '#eee')
             document.documentElement.style.setProperty('--lightdark-line', '#b0ae9b')
+            document.documentElement.style.setProperty('--link-color', '#dddd11')
+            document.documentElement.style.setProperty('--leftbar-color', '#333333')
+            document.documentElement.style.setProperty('--mainbar-color', '#444444')
         }
     }, [isLightMode])
 
@@ -92,7 +97,7 @@ const About = ({ setviewingTerms }) => {
                     <p>Version</p>
                 </div>
                 <div className='abt_odd_right'>
-                    <p>0.9.4.0</p>
+                    <p>0.9.4.2</p>
                 </div>
             </div>
             <div className='abt_even'>
@@ -100,7 +105,7 @@ const About = ({ setviewingTerms }) => {
                     <p>Last Updated</p>
                 </div>
                 <div className='abt_even_right'>
-                    <p>28 December 2022</p>
+                    <p>29 December 2022</p>
                 </div>
             </div>
             <div className='abt_odd'>
@@ -108,7 +113,7 @@ const About = ({ setviewingTerms }) => {
                     <p>Changelog</p>
                 </div>
                 <div className='abt_odd_right'>
-                    <button className='changelog_btn' onClick={() => setviewingTerms("cp")}>View</button>
+                    <button className='changelog_btn' onClick={() => setviewingTerms("cl")}>View</button>
                 </div>
             </div>
         </div>
@@ -121,13 +126,13 @@ const MainSettings = ({ currentSettingsTab, isLightMode, setIsLightMode, setview
     return <About setviewingTerms={setviewingTerms}/>
 }
 
-const Toc = ({ setviewingTerms }) => {
+const Toc = ({ isLightMode, setviewingTerms }) => {
     return (
         <div className='policy'>
             <div className='policy__head'>
                 <h1>Terms and Conditions</h1>
                 <Tooltip title="Go Back">
-                    <img src={cancelButton} alt="Go Back" onClick={() => setviewingTerms("main")}/>
+                    <img src={isLightMode ? cancelButton : cancelButtonDark} alt="Go Back" onClick={() => setviewingTerms("main")}/>
                 </Tooltip>
             </div>
             <div className='policy__main'>
@@ -217,13 +222,13 @@ const Toc = ({ setviewingTerms }) => {
     )
 }
 
-const Pp = ({ setviewingTerms }) => {
+const Pp = ({ isLightMode, setviewingTerms }) => {
     return (
         <div className='policy'>
             <div className='policy__head'>
                 <h1>Privacy Policy</h1>
                 <Tooltip title="Go Back">
-                    <img src={cancelButton} alt="Go Back" onClick={() => setviewingTerms("main")}/>
+                    <img src={isLightMode ? cancelButton : cancelButtonDark} alt="Go Back" onClick={() => setviewingTerms("main")}/>
                 </Tooltip>
             </div>
             <div className='policy__main'>
@@ -402,13 +407,13 @@ const Pp = ({ setviewingTerms }) => {
     )   
 }
 
-const D = ({ setviewingTerms }) => {
+const D = ({ isLightMode, setviewingTerms }) => {
     return (
         <div className='policy'>
             <div className='policy__head'>
                 <h1>Disclaimer</h1>
                 <Tooltip title="Go Back">
-                    <img src={cancelButton} alt="Go Back" onClick={() => setviewingTerms("main")}/>
+                    <img src={isLightMode ? cancelButton : cancelButtonDark} alt="Go Back" onClick={() => setviewingTerms("main")}/>
                 </Tooltip>
             </div>
             <div className='policy__main'>
@@ -460,13 +465,13 @@ const D = ({ setviewingTerms }) => {
     ) 
 }
 
-const Cp = ({ setviewingTerms }) => {
+const Cp = ({ isLightMode, setviewingTerms }) => {
     return (
         <div className='policy'>
             <div className='policy__head'>
                 <h1>Cookies Policy</h1>
                 <Tooltip title="Go Back">
-                    <img src={cancelButton} alt="Go Back" onClick={() => setviewingTerms("main")}/>
+                    <img src={isLightMode ? cancelButton : cancelButtonDark} alt="Go Back" onClick={() => setviewingTerms("main")}/>
                 </Tooltip>
             </div>
             <div className='policy__main'>
@@ -535,14 +540,36 @@ const Cp = ({ setviewingTerms }) => {
     ) 
 }
 
+const Cl = ({ isLightMode, setviewingTerms }) => {
+    return (
+        <div className='policy'>
+            <div className='policy__head'>
+                <h1>Chanelog</h1>
+                <Tooltip title="Go Back">
+                    <img src={isLightMode ? cancelButton : cancelButtonDark} alt="Go Back" onClick={() => setviewingTerms("main")}/>
+                </Tooltip>
+            </div>
+            <div className='policy__main'>
+                <h2>0.9</h2>
+                <h3>0.9.4</h3>
+                <h4>0.9.4.2</h4>
+                <p>Fix close button for terms and changelog hardly seeable for dark mode users.</p>
+                <h4>0.9.4.1</h4>
+                <p>Fix Merge Conflict.</p>
+            </div>
+        </div>
+    )
+}
+
 const Settings = ({ isLightMode, setIsLightMode }) => {
     const [currentSettingsTab, setCurrentSettingsTab] = useState("appr")
     const [viewingTerms, setviewingTerms] = useState("main")
 
-    if (viewingTerms === "toc") return <Toc setviewingTerms={setviewingTerms} />
-    if (viewingTerms === "pp") return <Pp setviewingTerms={setviewingTerms} />
-    if (viewingTerms === "d") return <D setviewingTerms={setviewingTerms} />
-    if (viewingTerms === "cp") return <Cp setviewingTerms={setviewingTerms} />
+    if (viewingTerms === "toc") return <Toc isLightMode={isLightMode} setviewingTerms={setviewingTerms} />
+    if (viewingTerms === "pp") return <Pp isLightMode={isLightMode} setviewingTerms={setviewingTerms} />
+    if (viewingTerms === "d") return <D isLightMode={isLightMode} setviewingTerms={setviewingTerms} />
+    if (viewingTerms === "cp") return <Cp isLightMode={isLightMode} setviewingTerms={setviewingTerms} />
+    if (viewingTerms === "cl") return <Cl isLightMode={isLightMode} setviewingTerms={setviewingTerms} />
 
     return (
         <div className='main_settings_wrapper'>

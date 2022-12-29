@@ -31,7 +31,8 @@ const App = () => {
   const [ isCreating, setIsCreating ] = useState(false)
   const [ isEditing, setIsEditing ] = useState(false)
   const [ currentMode, setCurrentMode ] = useState("main")
-  const [ isLightMode, setIsLightMode ] = useState(true)
+  const [ isLightMode, setIsLightMode ] = useState(false)
+  const [ isDev, setIsDev ] = useState(false)
 
   const logout = () => {
     cookies.remove("token");
@@ -45,6 +46,7 @@ const App = () => {
     window.location.reload();
   }
 
+  console.log(isLightMode)
 
   if (!authToken) return <Auth />
 

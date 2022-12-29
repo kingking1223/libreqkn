@@ -6,8 +6,12 @@
   --lightdark-inactive: #9da0be;
   --lightdark-body: #121217;
 
-  --main: #e1e1e1;
-  --text-color: #000;
+  --main: #414141;
+  --text-color: #eee;
+  --link-color: #dddd11;
+
+  --leftbar-color: #333333;
+  --mainbar-color: #444444;
 }
 
 html,
@@ -380,7 +384,7 @@ body {
 .channel-list__sidebar {
   width: 72px;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    var(--primary-color);
+    var(--leftbar-color);
   box-shadow: 1px 0px 0px rgba(0, 0, 0, 0.25);
   /* border-top-left-radius: 16px; */
   /* border-bottom-left-radius: 16px; */
@@ -404,8 +408,9 @@ body {
 .channel-list__list__wrapper {
   display: flex;
   flex-direction: column;
-  background: var(--primary-color);
+  background: var(--mainbar-color);
   width: 240px;
+  color: var(--text-color)
 }
 
 .icon1__inner {
@@ -1091,7 +1096,7 @@ body {
   align-items: center;
   font-family: Helvetica Neue, sans-serif;
   font-size: 14px;
-  color: #ffffff;
+  color: #dddddd;
   padding: 0px 20px;
   height: 100%;
   width: 100%;
@@ -1135,7 +1140,7 @@ body {
   align-items: center;
   font-family: Helvetica Neue, sans-serif;
   font-size: 14px;
-  color: #ffffff;
+  color: #dddddd;
   padding: 0px 20px;
   height: 100%;
   width: 100%;
@@ -1179,7 +1184,7 @@ body {
   align-items: center;
   font-family: Helvetica Neue, sans-serif;
   font-size: 14px;
-  color: #ffffff;
+  color: #dddddd;
   padding: 0px 20px;
   height: 100%;
   width: 100%;
@@ -1223,7 +1228,7 @@ body {
   align-items: center;
   font-family: Helvetica Neue, sans-serif;
   font-size: 14px;
-  color: #ffffff;
+  color: #dddddd;
   padding: 0px 20px;
   height: 100%;
   width: 100%;
@@ -2275,10 +2280,30 @@ div.rta__autocomplete.str-chat__emojisearch {
 }
 
 .policy__main {
+  background-color: var(--main);
+  color: var(--text-color);
+  margin-left: 0;
+  margin-right: 0;
+  overflow: scroll;
+  height: 92.8%;
+}
+
+.policy__main h1,
+.policy__main h2,
+.policy__main h3,
+.policy__main h4,
+.policy__main h5,
+.policy__main h6,
+.policy__main p {
   margin-left: 1%;
   margin-right: 1%;
-  overflow: scroll;
-  height: 92%;
+}
+
+.policy__main a:link,
+.policy__main a:visited,
+.policy__main a:hover,
+.policy__main a:active {
+  color: var(--link-color);
 }
 
 .abt_wrapper {
