@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
+import { getAuth } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth";
 
 import signinImage from '../assets/signup.jpg';
 
@@ -15,7 +20,7 @@ const initialState = {
     avatarURL: '',
 }
 
-const Auth = () => {
+const Auth = ({ googleLogin }) => {
     const [form, setForm] = useState(initialState);
     const [isSignup, setIsSignup] = useState(false);
 
@@ -58,8 +63,8 @@ const Auth = () => {
             <div className="auth__form-container_fields">
                 <div className="auth__form-container_fields-content">
                     <p>{isSignup ? 'Sign Up' : 'Log In'}</p>
-                    <form onSubmit={handleSubmit}>
-                        {isSignup && (
+                    <form onSubmit={googleLogin}>
+                        {/* {isSignup && (
                             <div className="auth__form-container_fields-content_input">
                                 <label htmlFor="fullName">Full Name</label>
                                 <input 
@@ -126,12 +131,12 @@ const Auth = () => {
                                     required
                                 />
                             </div>
-                            )}
+                            )} */}
                         <div className="auth__form-container_fields-content_button">
-                            <button>{isSignup ? "Sign Up" : "Log In"}</button>
+                            <button>{isSignup ? "Sign Up" : "Log In with Google"}</button>
                         </div>
                     </form>
-                    <div className="auth__form-container_fields-account">
+                    {/* <div className="auth__form-container_fields-account">
                         <p>
                             {isSignup
                              ? "Already have an account?" 
@@ -141,7 +146,7 @@ const Auth = () => {
                              {isSignup ? 'Sign In' : 'Sign Up'}
                              </span>
                         </p>
-                    </div>
+                    </div> */}
                 </div> 
             </div>
         </div>

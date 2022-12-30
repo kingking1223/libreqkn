@@ -69,6 +69,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color: #05245a;
   font-weight: 900;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .auth__form-container_fields-content_input {
@@ -131,8 +133,8 @@ body {
 
 .auth__form-container_fields-content_button button {
   border-radius: 4px;
-  background: #005fff;
-  border: 1px solid #005fff;
+  background: #222;
+  border: 1px solid #111111;
   color: #fff;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 500;
@@ -140,6 +142,8 @@ body {
   outline: none;
   cursor: pointer;
   transition: 0.3s ease;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .auth__form-container_fields-content_button button:hover {
@@ -943,7 +947,7 @@ body {
 
 .team-channel-header__name.user {
   font-weight: 500;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .team-channel-header__right {
