@@ -1,5 +1,9 @@
 import React from 'react'
 import { Channel, useChatContext, MessageTeam } from 'stream-chat-react'
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
+import 'firebase/compat/auth';
+import { useCollectionData } from 'react-firebase-hooks/functions'
 
 import { ChannelInner, CreateChannel, EditChannel, TeamMessage } from './'
 
@@ -33,12 +37,7 @@ const ChannelContainer = ({ isCreating, setIsCreating, isEditing, setIsEditing, 
     // TODO: Custom msgteam ui
     return (
         <div className="channel__container">
-            <Channel
-                EmptyStateIndicator={EmptyState}
-                Message={(messageProps, i) => <MessageTeam key={i} {...messageProps} />}
-            >
-                <ChannelInner setIsEditing={setIsEditing}/>
-            </Channel>
+            <p>test</p>
         </div>
     )
 }

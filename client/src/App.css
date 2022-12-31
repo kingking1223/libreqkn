@@ -1010,70 +1010,13 @@ body {
   margin-bottom: 10px;
 }
 
-.channel-preview__wrapper-chem {
+.channel-preview__wrapper {
   height: 37px;
   display: flex;
   align-items: center;
 }
 
-.channel-preview__wrapper__selected-chem {
-  height: auto;
-  display: flex;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.2);
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  font-weight: bold;
-  margin-right: 16px;
-  cursor: pointer;
-  z-index: 2;
-}
-
-.channel-preview__wrapper-math {
-  height: 37px;
-  display: flex;
-  align-items: center;
-}
-
-.channel-preview__wrapper__selected-math {
-  height: auto;
-  display: flex;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.2);
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  font-weight: bold;
-  margin-right: 16px;
-  cursor: pointer;
-  z-index: 2;
-}
-
-.channel-preview__wrapper-prog {
-  height: 37px;
-  display: flex;
-  align-items: center;
-}
-
-.channel-preview__wrapper__selected-prog {
-  height: auto;
-  display: flex;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.2);
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 8px;
-  font-weight: bold;
-  margin-right: 16px;
-  cursor: pointer;
-  z-index: 2;
-}
-
-.channel-preview__wrapper-msg {
-  height: 37px;
-  display: flex;
-  align-items: center;
-}
-
-.channel-preview__wrapper__selected-msg {
+.channel-preview__wrapper__selected {
   height: auto;
   display: flex;
   align-items: center;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChannelList, useChatContext } from 'stream-chat-react';
+// import { ChannelList, useChatContext } from 'stream-chat-react';
 import Cookies from 'universal-cookie';
 import Tooltip from '@mui/material/Tooltip';
 
@@ -25,22 +25,18 @@ const customChannelMessagingFilter = (channels) => {
     return channels.filter((channel) => channel.type === 'messaging')
 }
 
-const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEditing, setToggleContainer, isDev }) => {
-    const { client } = useChatContext();
-
-    const logout = () => {
-        cookies.remove("token");
-        cookies.remove('userId');
-        cookies.remove('username');
-        cookies.remove('fullName');
-        cookies.remove('avatarURL');
-        cookies.remove('hashedPassword');
-        cookies.remove('phoneNumber');
-
-        window.location.reload();
-    }
-
-    const filters = { members: { $in: [client.userID] } };
+const ChannelListContent = ({ 
+    isCreating,
+    setIsCreating, 
+    setCreateType, 
+    setIsEditing, 
+    setToggleContainer, 
+    isDev, 
+    currentChannel, 
+    setCurrentChannel,
+    userId,
+    checkLesson
+}) => {
 
     return (
         <>
@@ -48,117 +44,92 @@ const ChannelListContent = ({ isCreating, setIsCreating, setCreateType, setIsEdi
             <div className="channel-list__list__wrapper">
                 <CompanyHeader />
                 {/* <ChannelSearch setToggleContainer={setToggleContainer}/> */}
-                <ChannelList 
-                    filters={filters}
-                    channelRenderFilterFn={customChannelTeamFilter}
-                    List={(listProps) => (
-                        <TeamChannelList 
-                            {...listProps}
-                            type="team"
-                            isCreating={isCreating}
-                            setIsCreating={setIsCreating}
-                            setCreateType={setCreateType} 
-                            setIsEditing={setIsEditing}
-                            setToggleContainer={setToggleContainer}
-                            course="chem"
-                            isDev={isDev}
-                        />
-                    )}
-                    Preview={(previewProps) => (
-                        <ChemChannelPreview 
-                            {...previewProps}
-                            setIsCreating={setIsCreating}
-                            setIsEditing={setIsEditing}
-                            setToggleContainer={setToggleContainer}
-                            type="team"
-                        />
-                    )}
+                <TeamChannelList 
+                    type="team"
+                    isCreating={isCreating}
+                    setIsCreating={setIsCreating}
+                    setCreateType={setCreateType} 
+                    setIsEditing={setIsEditing}
+                    setToggleContainer={setToggleContainer}
+                    course="chem"
+                    isDev={isDev}
                 />
-                <ChannelList 
-                    filters={filters}
-                    channelRenderFilterFn={customChannelTeamFilter}
-                    List={(listProps) => (
-                        <TeamChannelList 
-                            {...listProps}
-                            type="team"
-                            isCreating={isCreating}
-                            setIsCreating={setIsCreating}
-                            setCreateType={setCreateType} 
-                            setIsEditing={setIsEditing}
-                            setToggleContainer={setToggleContainer}
-                            course="math"
-                            isDev={isDev}
-                        />
-                    )}
-                    Preview={(previewProps) => (
-                        <MathChannelPreview 
-                            {...previewProps}
-                            setIsCreating={setIsCreating}
-                            setIsEditing={setIsEditing}
-                            setToggleContainer={setToggleContainer}
-                            type="team"
-                        />
-                    )}
+                <ChemChannelPreview 
+                    setIsCreating={setIsCreating}
+                    setIsEditing={setIsEditing}
+                    setToggleContainer={setToggleContainer}
+                    type="team"
+                    currentChannel={currentChannel}
+                    setCurrentChannel={setCurrentChannel}
+                    userId={userId}
+                    checkLesson={(userId, checkCourse) => checkLesson}
                 />
-                <ChannelList 
-                    filters={filters}
-                    channelRenderFilterFn={customChannelTeamFilter}
-                    List={(listProps) => (
-                        <TeamChannelList 
-                            {...listProps}
-                            type="team"
-                            isCreating={isCreating}
-                            setIsCreating={setIsCreating}
-                            setCreateType={setCreateType} 
-                            setIsEditing={setIsEditing}
-                            setToggleContainer={setToggleContainer}
-                            course="prog"
-                            isDev={isDev}
-                        />
-                    )}
-                    Preview={(previewProps) => (
-                        <ProgChannelPreview 
-                            {...previewProps}
-                            setIsCreating={setIsCreating}
-                            setIsEditing={setIsEditing}
-                            setToggleContainer={setToggleContainer}
-                            type="team"
-                        />
-                    )}
+                <TeamChannelList 
+                    type="team"
+                    isCreating={isCreating}
+                    setIsCreating={setIsCreating}
+                    setCreateType={setCreateType} 
+                    setIsEditing={setIsEditing}
+                    setToggleContainer={setToggleContainer}
+                    course="math"
+                    isDev={isDev}
                 />
-                <ChannelList 
-                    filters={filters}
-                    channelRenderFilterFn={customChannelMessagingFilter}
-                    List={(listProps) => (
-                        <TeamChannelList 
-                            {...listProps}
-                            type="messaging"
-                            isCreating={isCreating}
-                            setIsCreating={setIsCreating}
-                            setCreateType={setCreateType} 
-                            setIsEditing={setIsEditing}
-                            setToggleContainer={setToggleContainer}
-                            course="msg"
-                            isDev={true}
-                        />
-                    )}
-                    Preview={(previewProps) => (
-                        <DirectPreview
-                            {...previewProps}
-                            setIsCreating={setIsCreating}
-                            setIsEditing={setIsEditing}
-                            setToggleContainer={setToggleContainer}
-                            type="messaging"
-                            course="msg"
-                        />
-                    )}
+                <MathChannelPreview 
+                    setIsCreating={setIsCreating}
+                    setIsEditing={setIsEditing}
+                    setToggleContainer={setToggleContainer}
+                    type="team"
+                    currentChannel={currentChannel}
+                    setCurrentChannel={setCurrentChannel}
+                    userId={userId}
+                    checkLesson={(userId, checkCourse) => checkLesson}
+                />
+                <TeamChannelList 
+                    type="team"
+                    isCreating={isCreating}
+                    setIsCreating={setIsCreating}
+                    setCreateType={setCreateType} 
+                    setIsEditing={setIsEditing}
+                    setToggleContainer={setToggleContainer}
+                    course="prog"
+                    isDev={isDev}
+                />
+                <ProgChannelPreview 
+                    setIsCreating={setIsCreating}
+                    setIsEditing={setIsEditing}
+                    setToggleContainer={setToggleContainer}
+                    type="team"
+                    currentChannel={currentChannel}
+                    setCurrentChannel={setCurrentChannel}
+                    userId={userId}
+                    checkLesson={(userId, checkCourse) => checkLesson}
+                />
+                <TeamChannelList 
+                    type="messaging"
+                    isCreating={isCreating}
+                    setIsCreating={setIsCreating}
+                    setCreateType={setCreateType} 
+                    setIsEditing={setIsEditing}
+                    setToggleContainer={setToggleContainer}
+                    course="msg"
+                    isDev={true}
+                />
+                <DirectPreview
+                    setIsCreating={setIsCreating}
+                    setIsEditing={setIsEditing}
+                    setToggleContainer={setToggleContainer}
+                    type="messaging"
+                    course="msg"
+                    currentChannel={currentChannel}
+                    setCurrentChannel={setCurrentChannel}
+                    userId={userId}
                 />
             </div>
         </>
     );
 }
 
-const ChannelListContainer = ({ setCreateType, setIsCreating, setIsEditing, isDev }) => {
+const ChannelListContainer = ({ setCreateType, setIsCreating, setIsEditing, isDev, currentChannel, setCurrentChannel }) => {
     const [toggleContainer, setToggleContainer] = useState(false);
 
     return (
@@ -169,6 +140,8 @@ const ChannelListContainer = ({ setCreateType, setIsCreating, setIsEditing, isDe
                 setCreateType={setCreateType} 
                 setIsEditing={setIsEditing} 
                 isDev={isDev}
+                currentChannel={currentChannel}
+                setCurrentChannel={setCurrentChannel}
               />
             </div>
 
@@ -183,6 +156,8 @@ const ChannelListContainer = ({ setCreateType, setIsCreating, setIsEditing, isDe
                     setIsEditing={setIsEditing}
                     setToggleContainer={setToggleContainer}
                     isDev={isDev}
+                    currentChannel={currentChannel}
+                    setCurrentChannel={setCurrentChannel}
                 />
             </div>
         </>

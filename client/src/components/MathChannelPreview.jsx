@@ -1,37 +1,38 @@
 import React from 'react';
-import { useChatContext } from 'stream-chat-react';
 
-const GroupPreview = ({ channel, course }) => {
-    if (channel?.data?.course === "math") {
+const GroupPreview = ({ userId, checkLesson, channelName }) => {
+    if (checkLesson(userId, "isMath")) {
         return (
             <p className='channel-preview__item_chem'>
-                # {channel?.data?.name || channel?.data?.id}
+                # {channelName}
             </p>
         )
     }
 }
 
-const MathChannelPreview = ({ setActiveChannel, setIsCreating, setIsEditing, setToggleContainer, channel, type }) => {
-    const { channel: activeChannel, client } = useChatContext();
+const MathChannelPreview = ({ setActiveChannel, setIsCreating, setIsEditing, setToggleContainer, channel, type, userId, checkLesson }) => {
+    const handleChannelClick = (setIsCreating, setIsEditing, setActiveChannel, setToggleContainer) => {
+        setIsCreating(false)
+        setIsEditing(false)
+        setActiveChannel(channel)
+        if (setToggleContainer) {
+            setToggleContainer((prevState) => !prevState)
+        }
+    }
 
     return (
         <>
-            <div className={
-                channel?.id === activeChannel?.id
-                    ? `channel-preview__wrapper__selected`
-                    : `channel-preview__wrapper`
-            }
-            onClick={() => {
-                setIsCreating(false)
-                setIsEditing(false)
-                setActiveChannel(channel)
-                
-                if (setToggleContainer) {
-                    setToggleContainer((prevState) => !prevState)
-                }
-            }}
-            >
-                <GroupPreview channel={channel}/>
+            <div className='channel-preview__wrapper'
+            onClick={(setIsCreating, setIsEditing, setActiveChannel, setToggleContainer) => handleChannelClick}>
+                <GroupPreview userId={userId} checkLesson={(userId, checkCourse) => checkLesson} channelName="math-assignment"/>
+            </div>
+            <div className='channel-preview__wrapper'
+            onClick={(setIsCreating, setIsEditing, setActiveChannel, setToggleContainer) => handleChannelClick}>
+                <GroupPreview userId={userId} checkLesson={(userId, checkCourse) => checkLesson} channelName="math-discussion"/>
+            </div>
+            <div className='channel-preview__wrapper'
+            onClick={(setIsCreating, setIsEditing, setActiveChannel, setToggleContainer) => handleChannelClick}>
+                <GroupPreview userId={userId} checkLesson={(userId, checkCourse) => checkLesson} channelName="math-lecture"/>
             </div>
         </>
     )

@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
-import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-import { getAuth } from "firebase/auth";
-import { GoogleAuthProvider } from "firebase/auth";
-
-import signinImage from '../assets/signup.jpg';
 
 const cookies = new Cookies();
 
