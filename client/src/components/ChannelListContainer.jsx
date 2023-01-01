@@ -35,7 +35,11 @@ const ChannelListContent = ({
     currentChannel, 
     setCurrentChannel,
     userId,
-    checkLesson
+    checkLesson,
+    checkDirect,
+    numberOfDirect,
+    setNumberOfDirect,
+    getNumberOfDirect
 }) => {
 
     return (
@@ -123,25 +127,44 @@ const ChannelListContent = ({
                     currentChannel={currentChannel}
                     setCurrentChannel={setCurrentChannel}
                     userId={userId}
+                    checkDirect={(userId) => checkDirect}
+                    numberOfDirect={numberOfDirect}
+                    setNumberOfDirect={setNumberOfDirect}
+                    getNumberOfDirect={(userId) => getNumberOfDirect}
                 />
             </div>
         </>
     );
 }
 
-const ChannelListContainer = ({ setCreateType, setIsCreating, setIsEditing, isDev, currentChannel, setCurrentChannel }) => {
+const ChannelListContainer = ({ 
+    isCreating,
+    setCreateType, 
+    setIsCreating, 
+    setIsEditing, 
+    isDev, 
+    currentChannel, 
+    setCurrentChannel, 
+    userId, 
+    checkLesson, 
+    checkDirect 
+}) => {
     const [toggleContainer, setToggleContainer] = useState(false);
 
     return (
         <>
             <div className="channel-list__container">
               <ChannelListContent 
+                isCreating={isCreating}
                 setIsCreating={setIsCreating} 
                 setCreateType={setCreateType} 
                 setIsEditing={setIsEditing} 
                 isDev={isDev}
                 currentChannel={currentChannel}
                 setCurrentChannel={setCurrentChannel}
+                userId={userId}
+                checkLesson={(userId, checkCourse) => checkLesson}
+                checkDirect={(userId) => checkDirect}
               />
             </div>
 

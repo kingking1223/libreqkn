@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 // import { StreamChat } from 'stream-chat';
 // import { Chat } from 'stream-chat-react';
 import Cookies from 'universal-cookie';
@@ -6,7 +6,7 @@ import Tooltip from '@mui/material/Tooltip';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
-import { getDatabase, ref, child, get } from "firebase/database";
+import { getDatabase, ref, child, get, onValue } from "firebase/database";
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/functions'
@@ -73,6 +73,7 @@ const App = () => {
     const [user] = useAuthState(auth)
     const [ currentChannel, setCurrentChannel ] = useState("cl")
     const [ userId, setuserId ] = useState('')
+    const [ numberOfDirect, setNumberOfDirect ] = useState(0)
 
     const logout = () => {
         setuserId('')
@@ -95,19 +96,20 @@ const App = () => {
         }
     })
 
+    //TODO: Fix bug. Now no matter what all courses gets rendered even if /user/id/course is false.
     const checkLesson = async (checkerid, checkCourse) => {
         await get(child(ref(database), `/user/${checkerid}/${checkCourse}`)).then((snapshot) => {
-        if (snapshot.exists()) {
-            return snapshot.val()
-        } else {
-            alert("Data not found.")
-            console.log("No data available");
+            if (snapshot.exists()) {
+                return snapshot.val()
+            } else {
+                alert("Data not found.")
+                console.log("No data available");
+                return false
+            }
+            }).catch((error) => {
+            alert("Error occured. Please check console.")
+            console.error(error);
             return null
-        }
-        }).catch((error) => {
-        alert("Error occured. Please check console.")
-        console.error(error);
-        return null
         });
     }
 
@@ -135,6 +137,8 @@ const App = () => {
             setCurrentChannel={setCurrentChannel}
             userId={userId}
             checkLesson={(userId, checkCourse) => checkLesson}
+            numberOfDirect={numberOfDirect}
+            setNumberOfDirect={setNumberOfDirect}
         />
         <ChannelContainer 
             isCreating={isCreating}

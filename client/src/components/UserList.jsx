@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Avatar, useChatContext } from 'stream-chat-react'
 
 import { InviteIcon } from '../assets'
 
@@ -39,7 +38,6 @@ const UserItem = ({ user, setSelectedUsers }) => {
 }
 
 const UserList = ({ setSelectedUsers }) => {
-    const { client } = useChatContext()
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(false)
     const [listEmpty, setListEmpty] = useState(false)
@@ -51,25 +49,13 @@ const UserList = ({ setSelectedUsers }) => {
 
             setLoading(true)
             try {
-                const response = await client.queryUsers(
-                    { id: { $nin: [client.userID, 'leung-king', '9909e903151b672391ffd94544361dda', 'deleted-user-1225714-44e0c9184f9b931755fdd5ec43e61325'] } },
-                    { id: 1 },
-                    { limit: 8 }
-                )
-
-                if (response.users.length) {
-                    setUsers(response.users)
-                } else {
-                    setListEmpty(true)
-                }
+                
             } catch (error) {
                 setError(true)
                 console.log(error)
             }
             setLoading(false)
         }
-
-        if (client) getUsers()
     }, [])
 
     if (error) {

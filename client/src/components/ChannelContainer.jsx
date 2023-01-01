@@ -5,7 +5,7 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 import { useCollectionData } from 'react-firebase-hooks/functions'
 
-import { ChannelInner, CreateChannel, EditChannel, TeamMessage } from './'
+import { ChannelInner, CreateDirect, EditChannel, TeamMessage } from './'
 
 const ChannelContainer = ({ isCreating, setIsCreating, isEditing, setIsEditing, createType }) => {
     const { channel } = useChatContext();
@@ -13,7 +13,7 @@ const ChannelContainer = ({ isCreating, setIsCreating, isEditing, setIsEditing, 
     if (isCreating) {
         return (
             <div className="channel_container">
-                <CreateChannel createType={createType} setIsCreating={setIsCreating} />
+                <CreateDirect createType={createType} setIsCreating={setIsCreating} />
             </div>
         )
     }

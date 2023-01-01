@@ -1,16 +1,9 @@
 import React from 'react';
 
-const chemaccepted = [
-    "18ce",
-    "cdg220055",
-    "cdg220102",
-    "cdg220108"
-]
-
 const GroupPreview = ({ userId, checkLesson, channelName }) => {
     if (checkLesson(userId, "isChem")) {
         return (
-            <p className='channel-preview__item_chem'>
+            <p className='channel-preview__item'>
                 # {channelName}
             </p>
         )

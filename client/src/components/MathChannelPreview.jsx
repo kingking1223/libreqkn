@@ -3,7 +3,7 @@ import React from 'react';
 const GroupPreview = ({ userId, checkLesson, channelName }) => {
     if (checkLesson(userId, "isMath")) {
         return (
-            <p className='channel-preview__item_chem'>
+            <p className='channel-preview__item'>
                 # {channelName}
             </p>
         )
