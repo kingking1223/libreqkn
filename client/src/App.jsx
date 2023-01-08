@@ -12,7 +12,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/functions'
 import { ChannelListContainer, ChannelContainer, Auth, Settings, LeftBar } from './components'
 import './App.css'
-import 'stream-chat-react/dist/css/index.css'
 
 const cookies = new Cookies()
 const app = firebase.initializeApp({
@@ -74,6 +73,9 @@ const App = () => {
     const [ currentChannel, setCurrentChannel ] = useState("cl")
     const [ userId, setuserId ] = useState('')
     const [ numberOfDirect, setNumberOfDirect ] = useState(0)
+    const [ isAllowedInChem, setIsAllowedInChem ] = useState(false)
+    const [ isAllowedInMath, setIsAllowedInMath ] = useState(false)
+    const [ isAllowedInProg, setIsAllowedInProg ] = useState(false)
 
     const logout = () => {
         setuserId('')
@@ -96,22 +98,40 @@ const App = () => {
         }
     })
 
-    //TODO: Fix bug. Now no matter what all courses gets rendered even if /user/id/course is false.
+    let testvar;
     const checkLesson = async (checkerid, checkCourse) => {
         await get(child(ref(database), `/user/${checkerid}/${checkCourse}`)).then((snapshot) => {
             if (snapshot.exists()) {
-                return snapshot.val()
+                testvar = snapshot.val()
             } else {
                 alert("Data not found.")
                 console.log("No data available");
                 return false
             }
             }).catch((error) => {
-            alert("Error occured. Please check console.")
-            console.error(error);
-            return null
-        });
+                alert("Error occured. Please check console.")
+                console.error(error);
+                return null
+            });
+        return testvar
     }
+
+    const checkLessonHander = (checkerid) => {
+        let checkChemResult = checkLesson(checkerid, "isChem")
+        checkChemResult.then(function (result) {
+            setIsAllowedInChem(result)
+        })
+        let checkMathResult = checkLesson(checkerid, "isMath")
+        checkMathResult.then(function (result) {
+            setIsAllowedInMath(result)
+        })
+        let checkProgResult = checkLesson(checkerid, "isProg")
+        checkProgResult.then(function (result) {
+            setIsAllowedInProg(result)
+        })
+    }
+
+    if (user) checkLessonHander(userId)
 
     if (!user) return <Auth googleLogin={googleLogin} />
 
@@ -123,7 +143,7 @@ const App = () => {
         </div>
         )
     }
-
+    console.log(isAllowedInChem)
     return (
         <div className='app__wrapper'>
         <LeftBar logout={logout} setCurrentMode={setCurrentMode} />
@@ -136,7 +156,11 @@ const App = () => {
             currentChannel={currentChannel}
             setCurrentChannel={setCurrentChannel}
             userId={userId}
-            checkLesson={(userId, checkCourse) => checkLesson}
+            checkLesson={(checkerId, checkCourse) => checkLesson}
+            checkLessonHander={(checkerId, checkCourse) => checkLessonHander}
+            isAllowedInChem={isAllowedInChem}
+            isAllowedInMath={isAllowedInMath}
+            isAllowedInProg={isAllowedInProg}
             numberOfDirect={numberOfDirect}
             setNumberOfDirect={setNumberOfDirect}
         />
