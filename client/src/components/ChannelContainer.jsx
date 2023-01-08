@@ -1,5 +1,4 @@
 import React from 'react'
-import { Channel, useChatContext, MessageTeam } from 'stream-chat-react'
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
@@ -8,7 +7,6 @@ import { useCollectionData } from 'react-firebase-hooks/functions'
 import { ChannelInner, CreateDirect, EditChannel, TeamMessage } from './'
 
 const ChannelContainer = ({ isCreating, setIsCreating, isEditing, setIsEditing, createType }) => {
-    const { channel } = useChatContext();
 
     if (isCreating) {
         return (

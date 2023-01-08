@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { ChannelList, useChatContext } from 'stream-chat-react';
 import Cookies from 'universal-cookie';
 import Tooltip from '@mui/material/Tooltip';
 
@@ -36,12 +35,16 @@ const ChannelListContent = ({
     setCurrentChannel,
     userId,
     checkLesson,
+    checkLessonHander,
     checkDirect,
     numberOfDirect,
     setNumberOfDirect,
-    getNumberOfDirect
+    getNumberOfDirect,
+    isAllowedInChem,
+    isAllowedInMath,
+    isAllowedInProg,
 }) => {
-
+    console.log(isAllowedInChem)
     return (
         <>
             {/* <SideBar logout={logout} setCurrentMode={setCurrentMode}/> */}
@@ -66,7 +69,9 @@ const ChannelListContent = ({
                     currentChannel={currentChannel}
                     setCurrentChannel={setCurrentChannel}
                     userId={userId}
-                    checkLesson={(userId, checkCourse) => checkLesson}
+                    checkLesson={(checkerId, checkCourse) => checkLesson}
+                    checkLessonHander={(checkerId, checkCourse) => checkLessonHander}
+                    isAllowedInChem={isAllowedInChem}
                 />
                 <TeamChannelList 
                     type="team"
@@ -87,6 +92,7 @@ const ChannelListContent = ({
                     setCurrentChannel={setCurrentChannel}
                     userId={userId}
                     checkLesson={(userId, checkCourse) => checkLesson}
+                    isAllowedInMath={isAllowedInMath}
                 />
                 <TeamChannelList 
                     type="team"
@@ -107,31 +113,36 @@ const ChannelListContent = ({
                     setCurrentChannel={setCurrentChannel}
                     userId={userId}
                     checkLesson={(userId, checkCourse) => checkLesson}
+                    isAllowedInProg={isAllowedInProg}
                 />
-                <TeamChannelList 
-                    type="messaging"
-                    isCreating={isCreating}
-                    setIsCreating={setIsCreating}
-                    setCreateType={setCreateType} 
-                    setIsEditing={setIsEditing}
-                    setToggleContainer={setToggleContainer}
-                    course="msg"
-                    isDev={true}
-                />
-                <DirectPreview
-                    setIsCreating={setIsCreating}
-                    setIsEditing={setIsEditing}
-                    setToggleContainer={setToggleContainer}
-                    type="messaging"
-                    course="msg"
-                    currentChannel={currentChannel}
-                    setCurrentChannel={setCurrentChannel}
-                    userId={userId}
-                    checkDirect={(userId) => checkDirect}
-                    numberOfDirect={numberOfDirect}
-                    setNumberOfDirect={setNumberOfDirect}
-                    getNumberOfDirect={(userId) => getNumberOfDirect}
-                />
+                {isDev === true &&
+                    <TeamChannelList 
+                        type="messaging"
+                        isCreating={isCreating}
+                        setIsCreating={setIsCreating}
+                        setCreateType={setCreateType} 
+                        setIsEditing={setIsEditing}
+                        setToggleContainer={setToggleContainer}
+                        course="msg"
+                        isDev={true}
+                    />
+                }
+                {isDev === true &&
+                    <DirectPreview
+                        setIsCreating={setIsCreating}
+                        setIsEditing={setIsEditing}
+                        setToggleContainer={setToggleContainer}
+                        type="messaging"
+                        course="msg"
+                        currentChannel={currentChannel}
+                        setCurrentChannel={setCurrentChannel}
+                        userId={userId}
+                        checkDirect={(userId) => checkDirect}
+                        numberOfDirect={numberOfDirect}
+                        setNumberOfDirect={setNumberOfDirect}
+                        getNumberOfDirect={(userId) => getNumberOfDirect}
+                    />
+                }
             </div>
         </>
     );
